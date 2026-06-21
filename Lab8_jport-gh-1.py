@@ -7,6 +7,8 @@ Starter Code: No external starter code used.
 Date: 06/21/2026
 """
 
+# Function to calculate UPC check digit 
+
 def find_UPC(first11):
    
     #Calculates the correct UPC-A check digit based on the first 11 digits. Returns the expected check digit as an integer.

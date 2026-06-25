@@ -55,3 +55,12 @@ def display_menu(self):
                 else:
                     print("Acronym not found.")
 
+elif choice == "3":
+                category = input("Enter category: ")
+                results = self.manager.list_by_category(category)
+                if results:
+                    for a in results:
+                        print(a)
+                else:
+                    print("No acronyms found in that category.")
+

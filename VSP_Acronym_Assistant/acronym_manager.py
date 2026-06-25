@@ -81,3 +81,22 @@ def save_to_file(self, filename="acronyms.json"):
         with open(filename, "w") as file:
             json.dump(data, file, indent=4)
 
+def load_from_file(self, filename="acronyms.json"):
+        """
+        Load acronyms from a JSON file.
+
+        Parameters:
+            filename (str): The file to load from.
+        """
+        try:
+            with open(filename, "r") as file:
+                data = json.load(file)
+
+            self.acronyms = []
+            for item in data:
+                self.acronyms.append(
+                    Acronym(item["short"], item["definition"], item["category"])
+                )
+        except FileNotFoundError:
+            # If the file doesn't exist yet, start with an empty list
+            self.acronyms = []

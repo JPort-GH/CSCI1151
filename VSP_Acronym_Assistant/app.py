@@ -77,4 +77,3 @@ class AcronymApp:
 
             else:
                 print("Invalid choice. Please try again.")
-s

@@ -73,3 +73,9 @@ elif choice == "4":
                 self.manager.load_from_file()
                 print("Acronyms loaded from file.")
 
+elif choice == "6":
+                print("Goodbye!")
+                break
+
+            else:
+                print("Invalid choice. Please try again.")

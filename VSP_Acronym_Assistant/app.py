@@ -67,3 +67,9 @@ elif choice == "3":
 elif choice == "4":
                 self.manager.save_to_file()
                 print("Acronyms saved to file.")
+
+
+            elif choice == "5":
+                self.manager.load_from_file()
+                print("Acronyms loaded from file.")
+

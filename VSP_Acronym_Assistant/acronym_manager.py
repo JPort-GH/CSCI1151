@@ -63,5 +63,21 @@ def list_by_category(self, category: str):
         category = category.lower()
         return [a for a in self.acronyms if a.category.lower() == category]
 
+def save_to_file(self, filename="acronyms.json"):
+        """
+        Save all acronyms to a JSON file.
 
+        Parameters:
+            filename (str): The file to save to.
+        """
+        data = []
+        for a in self.acronyms:
+            data.append({
+                "short": a.short,
+                "definition": a.definition,
+                "category": a.category
+            })
+
+        with open(filename, "w") as file:
+            json.dump(data, file, indent=4)
 

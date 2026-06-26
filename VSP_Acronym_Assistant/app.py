@@ -38,7 +38,8 @@ class AcronymApp:
         """
         while True:
             self.display_menu()
-            choice = input("Enter your choice (1=Add, 2=Search, 3=List, 4=Save, 5=Load, 6=Quit): ")
+            choice = input("Enter your choice (1=Search, 2=List, 3=Add, 4=Save, 5=Load, 6=Quit): ")
+
 
             if choice == "1":
                 short = input("Enter acronym: ")

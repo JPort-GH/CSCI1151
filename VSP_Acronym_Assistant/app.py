@@ -40,15 +40,7 @@ class AcronymApp:
             self.display_menu()
             choice = input("Enter your choice (1=Search, 2=List, 3=Add, 4=Save, 5=Load, 6=Quit): ")
 
-
             if choice == "1":
-                short = input("Enter acronym: ")
-                definition = input("Enter definition: ")
-                category = input("Enter category: ")
-                self.manager.add_acronym(short, definition, category)
-                print("Acronym added successfully.")
-
-            elif choice == "2":
                 short = input("Enter acronym to search: ")
                 result = self.manager.search_acronym(short)
                 if result:
@@ -56,7 +48,7 @@ class AcronymApp:
                 else:
                     print("Acronym not found.")
 
-            elif choice == "3":
+            elif choice == "2":
                 category = input("Enter category: ")
                 results = self.manager.list_by_category(category)
                 if results:
@@ -64,6 +56,13 @@ class AcronymApp:
                         print(a)
                 else:
                     print("No acronyms found in that category.")
+
+            elif choice == "3":
+                short = input("Enter acronym: ")
+                definition = input("Enter definition: ")
+                category = input("Enter category: ")
+                self.manager.add_acronym(short, definition, category)
+                print("Acronym added successfully.")
 
             elif choice == "4":
                 self.manager.save_to_file()

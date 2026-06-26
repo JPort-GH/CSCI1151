@@ -25,88 +25,52 @@ class AcronymManager:
         Add a new acronym to the list.
         """
         new_acronym = Acronym(short, definition, category)
-       
-"""
-File: acronym_manager.py
-Author: Janet Portillo (Jport-GH)
-Date: 2026-06-25
-Purpose:
-    Manages a collection of Acronym objects. Handles adding, searching,
-    listing, saving, and loading acronym data for the VSP Acronym Assistant.
-Resources:
-    No starter code used. Created for CSCI 1151 Project 1.
-"""
-from acronym import Acronym
-import json
+        self.acronyms.append(new_acronym)
 
-class AcronymManager:
-    """
-    Manages a list of Acronym objects and provides operations for them.
-    """
-
-    def __init__(self):
-        """Initialize the manager with an empty acronym list."""
-        self.acronyms = []
-
-    def add_acronym(self, short: str, definition: str, category: str):
+    def search_acronym(self, short: str):
         """
-        Add a new acronym to the list.
+        Search for an acronym by its short text (case-insensitive).
         """
-        new_acronym = Acronym(short, definition, category)
-       
-"""
-File: acronym_manager.py
-Author: Janet Portillo (Jport-GH)
-Date: 2026-06-25
-Purpose:
-    Manages a collection of Acronym objects. Handles adding, searching,
-    listing, saving, and loading acronym data for the VSP Acronym Assistant.
-Resources:
-    No starter code used. Created for CSCI 1151 Project 1.
-"""
-from acronym import Acronym
-import json
+        short = short.lower()
+        for acronym in self.acronyms:
+            if acronym.short.lower() == short:
+                return acronym
+        return None
 
-class AcronymManager:
-    """
-    Manages a list of Acronym objects and provides operations for them.
-    """
-
-    def __init__(self):
-        """Initialize the manager with an empty acronym list."""
-        self.acronyms = []
-
-    def add_acronym(self, short: str, definition: str, category: str):
+    def list_by_category(self, category: str):
         """
-        Add a new acronym to the list.
+        Return all acronyms that match the given category (case-insensitive).
         """
-        new_acronym = Acronym(short, definition, category)
-       
-"""
-File: acronym_manager.py
-Author: Janet Portillo (Jport-GH)
-Date: 2026-06-25
-Purpose:
-    Manages a collection of Acronym objects. Handles adding, searching,
-    listing, saving, and loading acronym data for the VSP Acronym Assistant.
-Resources:
-    No starter code used. Created for CSCI 1151 Project 1.
-"""
-from acronym import Acronym
-import json
+        category = category.lower()
+        return [a for a in self.acronyms if a.category.lower() == category]
 
-class AcronymManager:
-    """
-    Manages a list of Acronym objects and provides operations for them.
-    """
-
-    def __init__(self):
-        """Initialize the manager with an empty acronym list."""
-        self.acronyms = []
-
-    def add_acronym(self, short: str, definition: str, category: str):
+    def save_to_file(self, filename="acronyms.json"):
         """
-        Add a new acronym to the list.
+        Save all acronyms to a JSON file.
         """
-        new_acronym = Acronym(short, definition, category)
-       
+        data = []
+        for a in self.acronyms:
+            data.append({
+                "short": a.short,
+                "definition": a.definition,
+                "category": a.category
+            })
+
+        with open(filename, "w") as file:
+            json.dump(data, file, indent=4)
+
+    def load_from_file(self, filename="acronyms.json"):
+        """
+        Load acronyms from a JSON file.
+        """
+        try:
+            with open(filename, "r") as file:
+                data = json.load(file)
+
+            self.acronyms = []
+            for item in data:
+                self.acronyms.append(
+                    Acronym(item["short"], item["definition"], item["category"])
+                )
+        except FileNotFoundError:
+            self.acronyms = []

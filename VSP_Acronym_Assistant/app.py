@@ -40,6 +40,7 @@ class AcronymApp:
             self.display_menu()
             choice = input("Enter your choice (1=Search, 2=List, 3=Add, 4=Save, 5=Load, 6=Quit): ")
 
+            # Option 1: Search Acronym
             if choice == "1":
                 short = input("Enter acronym to search: ")
                 result = self.manager.search_acronym(short)
@@ -48,8 +49,27 @@ class AcronymApp:
                 else:
                     print("Acronym not found.")
 
+            # Option 2: List by Category (UPDATED)
             elif choice == "2":
-                category = input("Enter category: ")
+                print("\nAvailable Categories:")
+                categories = self.manager.get_categories()
+
+                # Display numbered list
+                for i, c in enumerate(categories, start=1):
+                    print(f"  {i} - {c}")
+
+                # Ask user for a number
+                selection = input("\nEnter the number of the category: ")
+
+                # Validate input
+                if not selection.isdigit() or not (1 <= int(selection) <= len(categories)):
+                    print("Invalid selection.")
+                    continue
+
+                # Convert number to category name
+                category = categories[int(selection) - 1]
+
+                # List acronyms in that category
                 results = self.manager.list_by_category(category)
                 if results:
                     for a in results:
@@ -57,6 +77,7 @@ class AcronymApp:
                 else:
                     print("No acronyms found in that category.")
 
+            # Option 3: Add Acronym
             elif choice == "3":
                 short = input("Enter acronym: ")
                 definition = input("Enter definition: ")
@@ -64,17 +85,21 @@ class AcronymApp:
                 self.manager.add_acronym(short, definition, category)
                 print("Acronym added successfully.")
 
+            # Option 4: Save to File
             elif choice == "4":
                 self.manager.save_to_file()
                 print("Acronyms saved to file.")
 
+            # Option 5: Load from File
             elif choice == "5":
                 self.manager.load_from_file()
                 print("Acronyms loaded from file.")
 
+            # Option 6: Quit
             elif choice == "6":
                 print("Goodbye!")
                 break
 
+            # Invalid Choice
             else:
                 print("Invalid choice. Please try again.")

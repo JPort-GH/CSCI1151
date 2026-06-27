@@ -116,13 +116,19 @@ class AcronymManager:
             with open(filename, "r") as file:
                 data = json.load(file)
 
-            self.acronyms = []
+            # Convert existing acronyms to a set of tuples
+            existing = {(a.short, a.definition, a.category) for a in self.acronyms}
+
+            # Merge new acronyms from file
             for item in data:
-                self.acronyms.append(
-                    Acronym(item["short"], item["definition"], item["category"])
-                )
+                tup = (item["short"], item["definition"], item["category"])
+                if tup not in existing:
+                    self.acronyms.append(
+                        Acronym(item["short"], item["definition"], item["category"])
+                    )
+
         except FileNotFoundError:
-            self.acronyms = []
+            print("No saved file found. Nothing loaded.")
 
     def get_categories(self):
         """Return a sorted list of unique categories."""
